@@ -8,7 +8,17 @@ const models = () => {
         password VARCHAR NOT NULL,
         is_admin BOOLEAN NOT NULL DEFAULT false
     );`;
-    pool.query(`${usersTable}`)
+    const tripsTable = `CREATE TABLE IF NOT EXISTS trips(
+        id SERIAL PRIMARY KEY,
+        bus_id INTEGER NOT NULL,
+        origin VARCHAR NOT NULL,
+        destination VARCHAR NOT NULL,
+        trip_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        fare NUMERIC(15,2) NOT NULL,
+        status VARCHAR NOT NULL DEFAULT 'active'
+    );`;
+    pool.query(`${usersTable}
+                ${tripsTable}`)
     .then()
     .catch();
 };
