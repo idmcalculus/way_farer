@@ -6,5 +6,5 @@ const router = express.Router();
 
 router.post('/', secure.protect, trips.createTrip);
 
-router.post('/', secure.protect, trips.getTrips);
+router.get('/', secure.protect, trips.getTrips);
 export default router;
