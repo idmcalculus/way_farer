@@ -1,32 +1,38 @@
 import pool from "../models/pool";
 
-const trips = {
-    createTrip: (req, res) => {
+const bookings = {
+    createBooking: (req, res) => {
         const { 
             token,
             user_id,
             is_admin,
+            trip_id,
+            booking_id,
             bus_id,
-            origin,
-            destination,
-            fare,
+            seat_number,
+            first_name,
+            last_name,
+            email            
          } = req.body;
        
     pool.query(`INSERT INTO 
-    trips(bus_id, origin, destination, fare)
-    VALUES($1, $2, $3, $4)
+    bookings(booking_id, bus_id, seat_number, first_name, last_name, email)
+    VALUES($1, $2, $3, $4, $5, $6)
     RETURNING *`,
-    [bus_id, origin, destination, fare])
+    [booking_id, bus_id, seat_number, first_name, last_name, email])
     .then((result) => {
         res.send({
             status: "success",
             data: {
+                booking_id: result.rows[0].booking_id,
+                user_id: id,
                 trip_id: result.rows[0].id,
                 bus_id: result.rows[0].bus_id,
-                origin: result.rows[0].origin,
-                destination: result.rows[0].destination,
                 trip_date: result.rows[0].trip_date,
-                fare: result.rows[0].fare,
+                seat_number: result.rows[0].seat_number,
+                first_name: result.rows[0].first_number,
+                last_name: result.rows[0].last_name,
+                email: result.rows[0].email,
             }
         });
     })
@@ -38,8 +44,8 @@ const trips = {
     });
     
     },
-    getTrips: (req, res) => {
-        pool.query(`SELECT * FROM trips;`)
+    getBookings: (req, res) => {
+        pool.query(`SELECT * FROM bookings;`)
         .then((result) => {
             res.send({
                 status: "success",
@@ -54,4 +60,4 @@ const trips = {
     });
     }
 };
-export default trips;
+export default bookings;
