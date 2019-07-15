@@ -25,7 +25,7 @@ const bookings = {
             status: "success",
             data: {
                 booking_id: result.rows[0].booking_id,
-                user_id: id,
+                user_id: result.rows[0].id,
                 trip_id: result.rows[0].id,
                 bus_id: result.rows[0].bus_id,
                 trip_date: result.rows[0].trip_date,
@@ -50,6 +50,28 @@ const bookings = {
             res.send({
                 status: "success",
                 data: result.rows,
+            });
+        })
+        .catch((err) => {
+            res.status(500).send({
+            status: "error",
+            error: "internal server error"
+        });
+    });
+    },
+
+    deleteBookings: (req, res) => {
+        const bookingId = req.params.bookingId;
+        pool.query(`DELETE FROM bookings WHERE booking_id = ($1)
+        RETURNING *;`,
+        [bookingId],
+        )
+        .then((result) => {
+            res.status(201).send({
+                status: "success",
+                data: {
+                    message: "Booking deleted successfuly",
+                },
             });
         })
         .catch((err) => {
