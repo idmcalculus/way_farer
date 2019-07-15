@@ -58,6 +58,28 @@ const bookings = {
             error: "internal server error"
         });
     });
+    },
+
+    deleteBookings: (req, res) => {
+        const bookingId = req.params.bookingId;
+        pool.query(`DELETE FROM bookings WHERE booking_id = ($1)
+        RETURNING *;`,
+        [bookingId],
+        )
+        .then((result) => {
+            res.status(201).send({
+                status: "success",
+                data: {
+                    message: "Booking deleted successfuly",
+                },
+            });
+        })
+        .catch((err) => {
+            res.status(500).send({
+            status: "error",
+            error: "internal server error"
+        });
+    });
     }
 };
 export default bookings;

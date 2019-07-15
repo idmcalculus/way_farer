@@ -52,6 +52,30 @@ const trips = {
             error: "internal server error"
         });
     });
+    },
+    updateTrips: (req, res) => {
+       
+        const tripId = req.params.tripId;
+        pool.query(`
+        UPDATE trips SET status = ($1) WHERE id = ($2)
+        RETURNING *`,
+        ["cancel", tripId],
+        )
+        .then((result) => {
+            res.status(201).send({
+                status: "success",
+                data: {
+                    message: "Trip cancelled succesfully",
+                },
+            })
+        })
+        .catch((err) => {
+            res.status(500).send({
+                status: "error",
+                error: "internal server error"
+            });
+        });
+
     }
 };
 export default trips;
