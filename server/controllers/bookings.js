@@ -25,7 +25,7 @@ const bookings = {
             status: "success",
             data: {
                 booking_id: result.rows[0].booking_id,
-                user_id: id,
+                user_id: result.rows[0].id,
                 trip_id: result.rows[0].id,
                 bus_id: result.rows[0].bus_id,
                 trip_date: result.rows[0].trip_date,
