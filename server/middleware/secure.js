@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 const secure = {
   protect: (req, res, next) => {
    
-    const token = req.header('x-auth-token');
+    const token = req.header('token');
     if (!token) {
       return res.status(401).send({
         status: 401,
@@ -12,7 +12,7 @@ const secure = {
     }
 
     try {
-      const decoded = jwt.verify(token, process.env.jwtPrivateKey);
+      const decoded = jwt.verify(token, "hidelater");
       req.user = decoded;
       req.body.token = token;
       next();
