@@ -5,9 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --require @babel/register",
-    "start": "nodemon --exec babel-node server/app.js",
+    "start": "node dist/app.js",
     "build": "babel server --out-dir dist",
     "serve": "node dist/app.js"
+  },
+  "engines": {
+    "node": "12.6.0"
   },
   "repository": {
     "type": "git",
