@@ -2,6 +2,7 @@ import { should, use, request } from 'chai';
 import chaiHttp from 'chai-http';
 
 import server from '../server/app';
+import pool from '../server/models/pool'
 
 
 should();
@@ -10,6 +11,12 @@ use(chaiHttp);
 process.env.NODE_ENV === 'test';
 
 describe('Test suites', () => {
+    after(() => {
+        pool.query(`
+        DELETE FROM users WHERE email = 'c@gmail.com';`)
+        .then()
+        .catch();
+    });
     context('POST /auth/signup', () => {
         it('should signup new user', (done) => {
             const user = {
