@@ -7,7 +7,7 @@ import pool from '../server/models/pool';
 should();
 use(chaiHttp);
 
-process.env.NODE_ENV === 'test';
+//process.env.NODE_ENV === 'test';
 
 describe('Test suites', () => {
   after(() => {

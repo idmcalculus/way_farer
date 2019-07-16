@@ -9,8 +9,6 @@ services:
   - postgresql
 before_script:
   - psql -c 'create database user_db;' -U postgres
-env:
-  - NODE_ENV=test
 cache:
   directories:
     - 'node_modules'
