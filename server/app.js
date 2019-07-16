@@ -17,6 +17,10 @@ app.use('/api/v1/bookings', bookings);
 //create database tables
 models();
 
+app.get('/', (req, res) => {
+  return res.status(200).send({ message: 'We are LIVE!!!' });
+});
+
 let port = process.env.PORT;
 if (port == null || port == '') {
   port = 8000;

@@ -31,7 +31,17 @@ app.use('/api/v1/trips', _trips["default"]);
 app.use('/api/v1/bookings', _bookings["default"]); //create database tables
 
 (0, _models["default"])();
-var port = process.env.PORT || 5000;
+app.get('/', function (req, res) {
+  return res.status(200).send({
+    message: 'We are LIVE!!!'
+  });
+});
+var port = process.env.PORT;
+
+if (port == null || port == '') {
+  port = 8000;
+}
+
 var server = app.listen(port, function () {
   return console.log("Listening on port ".concat(port, "..."));
 });
