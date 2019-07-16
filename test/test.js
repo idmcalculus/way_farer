@@ -104,7 +104,6 @@ describe('Test suites', () => {
   context('POST /bookings/createBooking', () => {
     it('should create new booking', done => {
       const booking = {
-        token: '23',
         booking_id: '1',
         bus_id: '1',
         seat_number: '1',
@@ -126,7 +125,6 @@ describe('Test suites', () => {
     });
     it('should return error if email is used already', done => {
       const booking = {
-        token: '23',
         booking_id: '1',
         bus_id: '1',
         seat_number: '1',
@@ -145,6 +143,114 @@ describe('Test suites', () => {
           res.should.have.status(500);
           done();
         });
+    });
+  });
+  context('GET /bookings/getBookings', () => {
+    it('should get all bookings', done => {
+      const booking = {
+        booking_id: '1',
+        bus_id: '1',
+        seat_number: '1',
+        first_name: 'f',
+        last_name: 'g',
+        email: 'j@gmail.com'
+      };
+      request(server)
+        .get('/api/v1/bookings/')
+        .set(
+          'token',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsIl9lbWFpbCI6ImVtYWlsQGVtYWlsLmNvbSIsIl9pc2FkbWluIjpmYWxzZSwiaWF0IjoxNTYzMjMwNDIwfQ.3F34ikIk94ZEmZ5F9CXkgvTJ1UMextWEb-ss9saBNL8'
+        )
+        .send(booking)
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
+  context('DELETE /bookings/deleteBookings', () => {
+    it('should delete a booking', done => {
+      const booking = {
+        booking_id: '1',
+        bus_id: '1',
+        seat_number: '1',
+        first_name: 'f',
+        last_name: 'g',
+        email: 'j@gmail.com'
+      };
+      request(server)
+        .delete('/api/v1/bookings/1')
+        .set(
+          'token',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsIl9lbWFpbCI6ImVtYWlsQGVtYWlsLmNvbSIsIl9pc2FkbWluIjpmYWxzZSwiaWF0IjoxNTYzMjMwNDIwfQ.3F34ikIk94ZEmZ5F9CXkgvTJ1UMextWEb-ss9saBNL8'
+        )
+        .end((err, res) => {
+          res.should.have.status(201);
+          done();
+        });
+    });
+  });
+  context('POST /trips/createTrip', () => {
+    it('should create new trip', done => {
+      const trip = {
+        bus_id: '3',
+        origin: 'Benin',
+        destination: 'Lagos',
+        fare: '5000'
+      };
+      request(server)
+        .post('/api/v1/trips/')
+        .set(
+          'token',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsIl9lbWFpbCI6ImVtYWlsQGVtYWlsLmNvbSIsIl9pc2FkbWluIjpmYWxzZSwiaWF0IjoxNTYzMjMwNDIwfQ.3F34ikIk94ZEmZ5F9CXkgvTJ1UMextWEb-ss9saBNL8'
+        )
+        .send(trip)
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+    });
+  });
+  context('GET /trips/getTrips', () => {
+    it('should get all trips', done => {
+      const trip = {
+        bus_id: '3',
+        origin: 'Benin',
+        destination: 'Lagos',
+        fare: '5000'
+      };
+      request(server)
+        .get('/api/v1/trips/')
+        .set(
+          'token',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsIl9lbWFpbCI6ImVtYWlsQGVtYWlsLmNvbSIsIl9pc2FkbWluIjpmYWxzZSwiaWF0IjoxNTYzMjMwNDIwfQ.3F34ikIk94ZEmZ5F9CXkgvTJ1UMextWEb-ss9saBNL8'
+        )
+        .send(trip)
+        .end((err, res) => {
+          res.should.have.status(200);
+          done();
+        });
+      context('PATCH /trips/updateTrips', () => {
+        it('should cancel a trip', done => {
+          const trip = {
+            bus_id: '3',
+            origin: 'Benin',
+            destination: 'Lagos',
+            fare: '5000'
+          };
+          request(server)
+            .patch('/api/v1/trips/9')
+            .set(
+              'token',
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOjEsIl9lbWFpbCI6ImVtYWlsQGVtYWlsLmNvbSIsIl9pc2FkbWluIjpmYWxzZSwiaWF0IjoxNTYzMjMwNDIwfQ.3F34ikIk94ZEmZ5F9CXkgvTJ1UMextWEb-ss9saBNL8'
+            )
+            .send(trip)
+            .end((err, res) => {
+              res.should.have.status(201);
+              done();
+            });
+        });
+      });
     });
   });
 });
