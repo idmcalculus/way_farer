@@ -7,7 +7,11 @@ exports["default"] = void 0;
 
 var _pool = _interopRequireDefault(require("../models/pool"));
 
+var _dotenv = _interopRequireDefault(require("dotenv"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+_dotenv["default"].config();
 
 var bookings = {
   createBooking: function createBooking(req, res) {
@@ -25,7 +29,7 @@ var bookings = {
 
     _pool["default"].query("INSERT INTO \n    bookings(booking_id, bus_id, seat_number, first_name, last_name, email)\n    VALUES($1, $2, $3, $4, $5, $6)\n    RETURNING *", [booking_id, bus_id, seat_number, first_name, last_name, email]).then(function (result) {
       res.send({
-        status: "success",
+        status: 'success',
         data: {
           booking_id: result.rows[0].booking_id,
           user_id: result.rows[0].id,
@@ -40,21 +44,21 @@ var bookings = {
       });
     })["catch"](function (err) {
       res.status(500).send({
-        status: "error",
-        error: "internal server error"
+        status: 'error',
+        error: 'internal server error'
       });
     });
   },
   getBookings: function getBookings(req, res) {
     _pool["default"].query("SELECT * FROM bookings;").then(function (result) {
       res.send({
-        status: "success",
+        status: 'success',
         data: result.rows
       });
     })["catch"](function (err) {
       res.status(500).send({
-        status: "error",
-        error: "internal server error"
+        status: 'error',
+        error: 'internal server error'
       });
     });
   },
@@ -63,15 +67,15 @@ var bookings = {
 
     _pool["default"].query("DELETE FROM bookings WHERE booking_id = ($1)\n        RETURNING *;", [bookingId]).then(function (result) {
       res.status(201).send({
-        status: "success",
+        status: 'success',
         data: {
-          message: "Booking deleted successfuly"
+          message: 'Booking deleted successfuly'
         }
       });
     })["catch"](function (err) {
       res.status(500).send({
-        status: "error",
-        error: "internal server error"
+        status: 'error',
+        error: 'internal server error'
       });
     });
   }
