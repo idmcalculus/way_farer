@@ -7,6 +7,7 @@ dotenv.config();
 const auth = {
   signup: (req, res) => {
     const { email, first_name, last_name, password } = req.body;
+    console.log(req.body);
 
     // check if user is already registered
     pool.query('SELECT * FROM users WHERE email = ($1)', [email]).then(result => {
