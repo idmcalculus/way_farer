@@ -6,7 +6,7 @@
   "scripts": {
     "test": "nyc mocha --require @babel/register",
     "start": "nodemon --exec babel-node server/app.js",
-    "build": "babel src --out-dir dist",
+    "build": "babel server --out-dir dist",
     "serve": "node dist/app.js"
   },
   "repository": {
