@@ -8,7 +8,7 @@ script:
 services:
   - postgresql
 before_script:
-  - psql -c 'CREATE DATABASE user_db;' -U postgres
+  - psql -c 'create database user_db;' -U postgres
 env:
   - NODE_ENV=test
 cache:

@@ -14,10 +14,12 @@ app.use('/api/v1/auth', auth);
 app.use('/api/v1/trips', trips);
 app.use('/api/v1/bookings', bookings);
 
-
 //create database tables
 models();
 
-const port = process.env.PORT || 5000;
+let port = process.env.PORT;
+if (port == null || port == '') {
+  port = 8000;
+}
 const server = app.listen(port, () => console.log(`Listening on port ${port}...`));
 export default server;
