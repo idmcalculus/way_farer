@@ -7,13 +7,12 @@ exports["default"] = void 0;
 
 var _pg = require("pg");
 
-var connectionString = {
-  user: 'postgres',
-  host: 'localhost',
-  database: 'user_db',
-  password: 'ma13ka2la',
-  port: 5432
-};
-var pool = new _pg.Pool(connectionString);
+var _dotenv = _interopRequireDefault(require("dotenv"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+_dotenv["default"].config();
+
+var pool = new _pg.Pool(process.env.DATABASE_URL);
 var _default = pool;
 exports["default"] = _default;

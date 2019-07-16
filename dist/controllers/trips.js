@@ -7,7 +7,11 @@ exports["default"] = void 0;
 
 var _pool = _interopRequireDefault(require("../models/pool"));
 
+var _dotenv = _interopRequireDefault(require("dotenv"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+_dotenv["default"].config();
 
 var trips = {
   createTrip: function createTrip(req, res) {
@@ -22,7 +26,7 @@ var trips = {
 
     _pool["default"].query("INSERT INTO \n    trips(bus_id, origin, destination, fare)\n    VALUES($1, $2, $3, $4)\n    RETURNING *", [bus_id, origin, destination, fare]).then(function (result) {
       res.send({
-        status: "success",
+        status: 'success',
         data: {
           trip_id: result.rows[0].id,
           bus_id: result.rows[0].bus_id,
@@ -34,38 +38,38 @@ var trips = {
       });
     })["catch"](function (err) {
       res.status(500).send({
-        status: "error",
-        error: "internal server error"
+        status: 'error',
+        error: 'internal server error'
       });
     });
   },
   getTrips: function getTrips(req, res) {
     _pool["default"].query("SELECT * FROM trips;").then(function (result) {
       res.send({
-        status: "success",
+        status: 'success',
         data: result.rows
       });
     })["catch"](function (err) {
       res.status(500).send({
-        status: "error",
-        error: "internal server error"
+        status: 'error',
+        error: 'internal server error'
       });
     });
   },
   updateTrips: function updateTrips(req, res) {
     var tripId = req.params.tripId;
 
-    _pool["default"].query("\n        UPDATE trips SET status = ($1) WHERE id = ($2)\n        RETURNING *", ["cancel", tripId]).then(function (result) {
+    _pool["default"].query("\n        UPDATE trips SET status = ($1) WHERE id = ($2)\n        RETURNING *", ['cancel', tripId]).then(function (result) {
       res.status(201).send({
-        status: "success",
+        status: 'success',
         data: {
-          message: "Trip cancelled succesfully"
+          message: 'Trip cancelled succesfully'
         }
       });
     })["catch"](function (err) {
       res.status(500).send({
-        status: "error",
-        error: "internal server error"
+        status: 'error',
+        error: 'internal server error'
       });
     });
   }

@@ -9,7 +9,11 @@ var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _pool = _interopRequireDefault(require("../models/pool"));
 
+var _dotenv = _interopRequireDefault(require("dotenv"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+_dotenv["default"].config();
 
 var auth = {
   signup: function signup(req, res) {
@@ -22,8 +26,8 @@ var auth = {
     _pool["default"].query('SELECT * FROM users WHERE email = ($1)', [email]).then(function (result) {
       if (result.rowCount !== 0) {
         return res.status(409).send({
-          status: "error",
-          error: "user already exists"
+          status: 'error',
+          error: 'user already exists'
         });
       }
     });
@@ -37,10 +41,10 @@ var auth = {
         _id: id,
         _email: result.rows[0].email,
         _isadmin: is_admin
-      }, "hidelater");
+      }, 'hidelater');
 
       res.header('token', token).send({
-        status: "success",
+        status: 'success',
         data: {
           token: token,
           user_id: id,
@@ -56,12 +60,12 @@ var auth = {
 
     _pool["default"].query('SELECT * FROM users WHERE email = ($1)', [email]).then(function (result) {
       if (result.rowCount !== 1) return res.status(400).send({
-        status: "error",
-        error: "invalid email or password"
+        status: 'error',
+        error: 'invalid email or password'
       });
       if (password !== result.rows[0].password) return res.status(400).send({
-        status: "error",
-        error: "invalid email or password"
+        status: 'error',
+        error: 'invalid email or password'
       });
       var _result$rows$2 = result.rows[0],
           id = _result$rows$2.id,
@@ -72,7 +76,7 @@ var auth = {
         _id: id,
         _email: _email,
         _isadmin: is_admin
-      }, "hidelater");
+      }, 'hidelater');
 
       res.send({
         status: 200,

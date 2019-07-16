@@ -31,8 +31,8 @@ const models = () => {
   pool
     .query(
       `${usersTable}
-                ${tripsTable}
-                ${bookingsTable}`
+        ${tripsTable}
+        ${bookingsTable}`
     )
     .then()
     .catch();
