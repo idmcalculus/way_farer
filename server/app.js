@@ -3,6 +3,9 @@ import auth from './routes/auth';
 import trips from './routes/trips';
 import bookings from './routes/bookings';
 import models from './models/models';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 //use middlewares
