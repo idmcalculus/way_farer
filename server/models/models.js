@@ -1,4 +1,4 @@
-import pool from './pool';
+import db from './pool';
 
 const models = () => {
   const usersTable = `CREATE TABLE IF NOT EXISTS users(
@@ -29,14 +29,13 @@ const models = () => {
     email VARCHAR NOT NULL UNIQUE,
     status VARCHAR NOT NULL DEFAULT 'active'
 );`;
-  pool
-    .query(
+  db.query(
       `${usersTable}
-              ${tripsTable}
-              ${bookingsTable}`
+      ${tripsTable}
+      ${bookingsTable}`
     )
     .then()
-    .catch();
+    .catch(err => console.error(err.stack));
 };
 
 export default models;

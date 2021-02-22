@@ -4,6 +4,8 @@ import trips from './routes/trips';
 import bookings from './routes/bookings';
 import models from './models/models';
 import dotenv from 'dotenv';
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 
 dotenv.config();
 

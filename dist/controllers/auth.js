@@ -21,7 +21,8 @@ var auth = {
         email = _req$body.email,
         first_name = _req$body.first_name,
         last_name = _req$body.last_name,
-        password = _req$body.password; // check if user is already registered
+        password = _req$body.password; //console.log(req.body);
+    // check if user is already registered
 
     _pool["default"].query('SELECT * FROM users WHERE email = ($1)', [email]).then(function (result) {
       if (result.rowCount !== 0) {
